@@ -1,7 +1,7 @@
 "use client";
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, useGLTF, Bounds, Center, Grid, Loader } from "@react-three/drei";
+import { OrbitControls, Environment, useGLTF, Bounds, Center, Grid } from "@react-three/drei";
 
 function Model({ url }: { url: string }) {
   const gltf = useGLTF(url);
@@ -26,7 +26,6 @@ export default function ViewerPage() {
             </Center>
           </Bounds>
         </Suspense>
-        <Loader />
       </Canvas>
     </div>
   );
