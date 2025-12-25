@@ -5,6 +5,8 @@ import { OrbitControls, Environment, useGLTF, Bounds, Center, Grid, useBounds } 
 import { Box3, Vector3, type Object3D } from "three";
 import { useSearchParams } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 function ClickableEnvelopes({
   root,
   selected,
@@ -78,9 +80,16 @@ function Model({
   );
 }
 
-useGLTF.preload("/hal.glb");
+// Preload default asset on client
+// Moved into effect to avoid preloading during build/prerender
+function PreloadDefault() {
+  useEffect(() => {
+    useGLTF.preload("/hal.glb");
+  }, []);
+  return null;
+}
 
-export default function ViewerPage() {
+function ViewerInner() {
   const searchParams = useSearchParams();
   const src = searchParams.get("src") ?? "/hal.glb";
   const [root, setRoot] = useState<Object3D | null>(null);
@@ -144,6 +153,7 @@ export default function ViewerPage() {
         <OrbitControls makeDefault />
         <Environment preset="city" />
         <Grid infiniteGrid sectionColor={"#444"} cellColor={"#222"} />
+        <PreloadDefault />
         <Suspense fallback={null}>
           <Bounds fit clip observe margin={1.2}>
             <Center>
@@ -153,5 +163,13 @@ export default function ViewerPage() {
         </Suspense>
       </Canvas>
     </div>
+  );
+}
+
+export default function ViewerPage() {
+  return (
+    <Suspense fallback={null}>
+      <ViewerInner />
+    </Suspense>
   );
 }
