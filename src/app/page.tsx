@@ -12,6 +12,9 @@ export default function Home() {
           <a className={styles.primary} href="/viewer">
             Open Viewer
           </a>
+          <a className={styles.secondary} href="/machines">
+            Select Machine
+          </a>
         </div>
       </main>
     </div>

@@ -42,6 +42,7 @@ export default function RootLayout({
           <Link href="/" style={{ fontWeight: 600, letterSpacing: "-0.5px" }}>Calypsion Digital Twin</Link>
           <nav style={{ display: "flex", gap: 16 }}>
             <Link href="/viewer">Viewer</Link>
+            <Link href="/machines">Machines</Link>
           </nav>
         </header>
         {children}
